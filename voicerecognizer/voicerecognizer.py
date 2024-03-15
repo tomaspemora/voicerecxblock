@@ -124,11 +124,15 @@ class VoiceRecognizerXBlock(XBlock):
 
     # Edit view
     def studio_view(self, context=None):
-
+        context = context or {}
+        context.update({'self': self})
+        # Add the custom filter functions to the context
+        context['encode_utf'] = encode_utf
+        context['get_remaining_attempts'] = get_remaining_attempts
+        if hasattr(self.runtime, 'request'):
+            context.update({'request': self.runtime.request})
         frag = Fragment()
-        frag.add_content(render_template("static/html/voicerecognizer_edit.html",
-                                         {'self': self, 'context': context}
-                                         ))
+        frag.add_content(render_template("static/html/voicerecognizer_edit.html",'context': context))
 
         frag.add_javascript(
             self.resource_string('static/js/voicerecognizer_edit.js'))

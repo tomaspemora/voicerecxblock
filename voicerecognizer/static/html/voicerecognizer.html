@@ -9,7 +9,8 @@
               {% if self.attempts == self.max_attempts or  self.score == 1 %}
                   <i>'Assesment completed!'</i><br><br>
               {% else %}
-                  <i>'Please click on start and read following sentence. You have <b id="rem-attempts">{{self.attempts|get_remaining_attempts:self.max_attempts}}</b> attempts remaining.'</i><br>
+                  <i>'Please click on start and read the following sentence. You have <b id="rem-attempts">{{ get_remaining_attempts(self.attempts, self.max_attempts) }}</b> attempts remaining.'</i><br>
+
             {% endif %}
 
             {{self.data}}<br><br>
