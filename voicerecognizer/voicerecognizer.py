@@ -12,7 +12,7 @@ from xblockutils.resources import ResourceLoader
 from django.template import Context, Template
 
 # from .templatetags import vsr
-from .templatetags.vsr import encode_utf, get_remaining_attempts
+from .templatetags.vsr import encode_utf#, get_remaining_attempts
 
 
 
@@ -80,6 +80,12 @@ class VoiceRecognizerXBlock(XBlock):
 
     has_score = True
 
+    def get_remaining_attempts(self):
+        try:
+            return self.max_attempts - self.attempts
+        except:
+            return None
+
     def resource_string(self, path):
         """
             Handy helper for getting resources from our kit.
@@ -112,7 +118,7 @@ class VoiceRecognizerXBlock(XBlock):
         context.update({'self': self})
         # Add the custom filter functions to the context
         context['encode_utf'] = encode_utf
-        context['get_remaining_attempts'] = get_remaining_attempts
+        
         if hasattr(self.runtime, 'request'):
             context.update({'request': self.runtime.request})
         frag = Fragment()
