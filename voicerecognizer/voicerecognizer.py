@@ -128,9 +128,6 @@ class VoiceRecognizerXBlock(XBlock):
         context.update({'self': self})
         # Add the custom filter functions to the context
         context['encode_utf'] = encode_utf
-        context['get_remaining_attempts'] = get_remaining_attempts
-        if hasattr(self.runtime, 'request'):
-            context.update({'request': self.runtime.request})
         frag = Fragment()
         frag.add_content(render_template("static/html/voicerecognizer_edit.html",'context': context))
 
