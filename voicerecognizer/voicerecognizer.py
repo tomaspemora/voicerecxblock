@@ -86,6 +86,12 @@ class VoiceRecognizerXBlock(XBlock):
         except:
             return None
 
+    def encode_utf(self, value):
+        """Encodes a Python str to UTF-8 bytes, then decodes back to str for template safety."""
+        if isinstance(value, str):
+            return value.encode('utf-8').decode('utf-8')
+        return value
+
     def resource_string(self, path):
         """
             Handy helper for getting resources from our kit.
@@ -93,21 +99,7 @@ class VoiceRecognizerXBlock(XBlock):
         data = pkg_resources.resource_string(__name__, path)
         return data.decode("utf8")
 
-    # TO-DO: change this view to display your data your own way.
-    # def student_view(self, context=None):
-    #     """
-    #         The primary view of the RadPatternsXBlock, shown to students
-    #         when viewing courses.
-    #     """
-    #     frag = Fragment()
-    #     frag.add_content(render_template("static/html/voicerecognizer.html",
-    #                                      {'self': self, 'context': context}
-    #                                      ))
-    #     frag.add_css(self.resource_string("static/css/voicerecognizer.css"))
-    #     frag.add_javascript(
-    #         self.resource_string("static/js/voicerecognizer.js"))
-    #     frag.initialize_js('VoiceRecognzerXBlock')
-    #     return frag
+
 
     def student_view(self, context=None):
         """
