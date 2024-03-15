@@ -1,7 +1,7 @@
 /* Javascript for Voice Recognzer Xblock. */
 function VoiceRecognzerEditXBlock(runtime, element) {
 
-    $(element).ready(function(){
+    (function () {
         mode = $("#h-mode",element).val();
         lang = $("#h-lang",element).val();
         if(mode==="assesment"){
@@ -13,7 +13,7 @@ function VoiceRecognzerEditXBlock(runtime, element) {
         $('#lang option',element).prop('selected', false)
                    .filter('[value="'+lang+'"]')
                    .prop('selected', true);
-    });
+    })();
 
     this.save = function ()  {
         var data = {
@@ -35,7 +35,7 @@ function VoiceRecognzerEditXBlock(runtime, element) {
                 $('.xblock-editor-error-message', element).css('display', 'block');
             }
         });
-    }
+    };
     $("#mode",element).change(function(){
         if($("#mode option:selected",element).val() === "assesment"){
             $(".mode-data",element).show();

@@ -1,7 +1,7 @@
 /* Javascript for VoiceRecognzer Xblock. */
 function VoiceRecognzerXBlock(runtime, element) {
     var clear, working, speech, final_transcript = "";
-    $(document).ready(function(){
+    (function () {
     
      $("#start-vsr",element).click(function(){
             try{
@@ -88,7 +88,7 @@ function VoiceRecognzerXBlock(runtime, element) {
         final_transcript = "";
         $("#labnol",element).html(format(capitalize(final_transcript)));
       });
-    });
+    })();
 
     function initialize() {
       speech = new webkitSpeechRecognition();
