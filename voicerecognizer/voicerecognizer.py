@@ -129,7 +129,7 @@ class VoiceRecognizerXBlock(XBlock):
         # Add the custom filter functions to the context
         context['encode_utf'] = encode_utf
         frag = Fragment()
-        frag.add_content(render_template("static/html/voicerecognizer_edit.html",'context': context))
+        frag.add_content(render_template("static/html/voicerecognizer_edit.html", context))
 
         frag.add_javascript(
             self.resource_string('static/js/voicerecognizer_edit.js'))
