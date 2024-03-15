@@ -11,6 +11,11 @@ from .utils import load_resource, render_template
 from xblockutils.resources import ResourceLoader
 from django.template import Context, Template
 
+# from .templatetags import vsr
+from .templatetags.vsr import encode_utf, get_remaining_attempts
+
+
+
 # Please start and end the path with a trailing slash
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
@@ -83,18 +88,37 @@ class VoiceRecognizerXBlock(XBlock):
         return data.decode("utf8")
 
     # TO-DO: change this view to display your data your own way.
+    # def student_view(self, context=None):
+    #     """
+    #         The primary view of the RadPatternsXBlock, shown to students
+    #         when viewing courses.
+    #     """
+    #     frag = Fragment()
+    #     frag.add_content(render_template("static/html/voicerecognizer.html",
+    #                                      {'self': self, 'context': context}
+    #                                      ))
+    #     frag.add_css(self.resource_string("static/css/voicerecognizer.css"))
+    #     frag.add_javascript(
+    #         self.resource_string("static/js/voicerecognizer.js"))
+    #     frag.initialize_js('VoiceRecognzerXBlock')
+    #     return frag
+
     def student_view(self, context=None):
         """
-            The primary view of the RadPatternsXBlock, shown to students
-            when viewing courses.
+        The primary view of the VoiceRecognizerXBlock, shown to students
+        when viewing courses.
         """
+        context = context or {}
+        context.update({'self': self})
+        # Add the custom filter functions to the context
+        context['encode_utf'] = encode_utf
+        context['get_remaining_attempts'] = get_remaining_attempts
+        if hasattr(self.runtime, 'request'):
+            context.update({'request': self.runtime.request})
         frag = Fragment()
-        frag.add_content(render_template("static/html/voicerecognizer.html",
-                                         {'self': self, 'context': context}
-                                         ))
+        frag.add_content(render_template("static/html/voicerecognizer.html", context))
         frag.add_css(self.resource_string("static/css/voicerecognizer.css"))
-        frag.add_javascript(
-            self.resource_string("static/js/voicerecognizer.js"))
+        frag.add_javascript(self.resource_string("static/js/voicerecognizer.js"))
         frag.initialize_js('VoiceRecognzerXBlock')
         return frag
 

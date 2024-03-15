@@ -35,5 +35,5 @@ setup(
             'voicerecognizer = voicerecognizer:VoiceRecognizerXBlock',
         ]
     },
-    package_data=package_data("voicerecognizer", ["static", "public"]),
+    package_data=package_data("voicerecognizer", ["static", "public", "templatetags"]),
 )
