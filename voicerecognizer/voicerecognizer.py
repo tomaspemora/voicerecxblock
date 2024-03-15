@@ -7,7 +7,7 @@ from xblock.core import XBlock
 from xblock.fields import Scope, Integer, String, Boolean, List, Dict, Float
 from xblock.fragment import Fragment
 
-from utils import load_resource, render_template
+from .utils import load_resource, render_template
 from xblockutils.resources import ResourceLoader
 from django.template import Context, Template
 
