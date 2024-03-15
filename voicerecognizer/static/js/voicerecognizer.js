@@ -91,7 +91,8 @@ function VoiceRecognzerXBlock(runtime, element) {
     })();
 
     function initialize() {
-      speech = new webkitSpeechRecognition();
+      var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+      speech = new SpeechRecognition();
       speech.continuous = true;
       speech.maxAlternatives = 5;
       speech.interimResults = true;
